@@ -1,0 +1,33 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<NexusMarketing.Models.tbl_product>
+@{
+    ViewBag.Title = "DisplayProduct";
+}
+
+<h2>DisplayProduct</h2>
+<div class="row" style="margin:20px">
+
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-4" style="height:250px" ; margin-top="120px">
+                <img src="@Url.Content(item.pro_image)" style="height:300px" ; width="300px" />
+                <h3 style="text-align:center">@item.pro_name</h3>
+            
+            </div>
+        }
+    }
+</div>
+
+<div class="container" style="margin-left:500px">
+    <div class="pagination" style="margin-top:280px">
+
+        Page@(Model.PageCount < Model.PageNumber?0:Model.PageNumber)
+        of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("DisplayProduct", new { page }))
+
+
+    </div>
+</div>
+

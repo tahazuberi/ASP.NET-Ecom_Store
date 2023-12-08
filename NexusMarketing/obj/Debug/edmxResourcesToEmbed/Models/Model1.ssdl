@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NexusMarketingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_admin">
+    <Key>
+      <PropertyRef Name="ad_id" />
+    </Key>
+    <Property Name="ad_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ad_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ad_password" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_category">
+    <Key>
+      <PropertyRef Name="cat_id" />
+    </Key>
+    <Property Name="cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cat_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cat_image" Type="varchar(max)" Nullable="false" />
+    <Property Name="cat_status" Type="int" />
+    <Property Name="ad_id_fk" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_invoice">
+    <Key>
+      <PropertyRef Name="inv_id" />
+    </Key>
+    <Property Name="inv_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="in_fk_pro" Type="int" />
+    <Property Name="inv_date" Type="date" />
+    <Property Name="in_total_bill" Type="float" />
+  </EntityType>
+  <EntityType Name="tbl_order">
+    <Key>
+      <PropertyRef Name="o_id" />
+    </Key>
+    <Property Name="o_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="o_fk_pro" Type="int" />
+    <Property Name="o_fk_invoice" Type="int" />
+    <Property Name="o_date" Type="date" />
+    <Property Name="o_qty" Type="int" />
+    <Property Name="o_bill" Type="int" />
+    <Property Name="o_unit_price" Type="float" />
+  </EntityType>
+  <EntityType Name="tbl_product">
+    <Key>
+      <PropertyRef Name="pro_id" />
+    </Key>
+    <Property Name="pro_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pro_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="pro_description" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="pro_image" Type="varchar(max)" Nullable="false" />
+    <Property Name="pro_price" Type="float" Nullable="false" />
+    <Property Name="cat_id_fk" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_user">
+    <Key>
+      <PropertyRef Name="u_id" />
+    </Key>
+    <Property Name="u_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="u_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="u_password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="u_image" Type="varchar(max)" Nullable="false" />
+    <Property Name="u_contact" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__tbl_categ__ad_id__4D94879B">
+    <End Role="tbl_admin" Type="Self.tbl_admin" Multiplicity="0..1" />
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_admin">
+        <PropertyRef Name="ad_id" />
+      </Principal>
+      <Dependent Role="tbl_category">
+        <PropertyRef Name="ad_id_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_invoi__in_fk__571DF1D5">
+    <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="0..1" />
+    <End Role="tbl_invoice" Type="Self.tbl_invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_product">
+        <PropertyRef Name="pro_id" />
+      </Principal>
+      <Dependent Role="tbl_invoice">
+        <PropertyRef Name="in_fk_pro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_order__o_fk___59FA5E80">
+    <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="0..1" />
+    <End Role="tbl_order" Type="Self.tbl_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_product">
+        <PropertyRef Name="pro_id" />
+      </Principal>
+      <Dependent Role="tbl_order">
+        <PropertyRef Name="o_fk_pro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_order__o_fk___5AEE82B9">
+    <End Role="tbl_invoice" Type="Self.tbl_invoice" Multiplicity="0..1" />
+    <End Role="tbl_order" Type="Self.tbl_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_invoice">
+        <PropertyRef Name="inv_id" />
+      </Principal>
+      <Dependent Role="tbl_order">
+        <PropertyRef Name="o_fk_invoice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_produ__cat_i__5441852A">
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="0..1" />
+    <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category">
+        <PropertyRef Name="cat_id" />
+      </Principal>
+      <Dependent Role="tbl_product">
+        <PropertyRef Name="cat_id_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NexusMarketingModelStoreContainer">
+    <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_invoice" EntityType="Self.tbl_invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_order" EntityType="Self.tbl_order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_product" EntityType="Self.tbl_product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_user" EntityType="Self.tbl_user" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbl_categ__ad_id__4D94879B" Association="Self.FK__tbl_categ__ad_id__4D94879B">
+      <End Role="tbl_admin" EntitySet="tbl_admin" />
+      <End Role="tbl_category" EntitySet="tbl_category" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_invoi__in_fk__571DF1D5" Association="Self.FK__tbl_invoi__in_fk__571DF1D5">
+      <End Role="tbl_product" EntitySet="tbl_product" />
+      <End Role="tbl_invoice" EntitySet="tbl_invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_order__o_fk___59FA5E80" Association="Self.FK__tbl_order__o_fk___59FA5E80">
+      <End Role="tbl_product" EntitySet="tbl_product" />
+      <End Role="tbl_order" EntitySet="tbl_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_order__o_fk___5AEE82B9" Association="Self.FK__tbl_order__o_fk___5AEE82B9">
+      <End Role="tbl_invoice" EntitySet="tbl_invoice" />
+      <End Role="tbl_order" EntitySet="tbl_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_produ__cat_i__5441852A" Association="Self.FK__tbl_produ__cat_i__5441852A">
+      <End Role="tbl_category" EntitySet="tbl_category" />
+      <End Role="tbl_product" EntitySet="tbl_product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

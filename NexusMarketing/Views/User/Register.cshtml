@@ -1,0 +1,22 @@
+﻿@model NexusMarketing.Models.tbl_user
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>USER RESGISTRATION</h2>
+
+@using (Html.BeginForm("Register", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.TextBoxFor(x => x.u_name, new { @class = "form-control", @placeholder = "Enter User Name" })
+
+    @Html.PasswordFor(x => x.u_password, new { @class = "form-control", @placeholder = "Enter User Password" })
+
+    @Html.TextBoxFor(x => x.u_contact, new { @class = "form-control", @placeholder = "Enter User Contact" })
+
+    <input type="file" name="file" id="file" class="btn btn-default" />
+
+
+    <input type="submit" value="Submit" name="Submit" class="btn btn-success" />
+}
+
+

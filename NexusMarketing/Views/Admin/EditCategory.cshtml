@@ -1,0 +1,20 @@
+﻿@model NexusMarketing.Models.tbl_category
+@{
+    ViewBag.Title = "EditCategory";
+}
+
+<h2>EditCategory</h2>
+
+@using (Html.BeginForm("EditCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.TextBoxFor(x => x.cat_name, new { @class = "form-control", @placeholder = "Enter Category Name" })
+
+    <input type="file" name="file" id="file" class="btn btn-default" />
+
+    @Html.TextBoxFor(x => x.cat_status, new { @class = "form-control", @placeholder = "Enter Update [0/1]" })
+
+
+
+    <input type="submit" value="Submit" name="Submit" class="btn btn-success" />
+}
+

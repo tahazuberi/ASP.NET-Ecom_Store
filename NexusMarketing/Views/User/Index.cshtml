@@ -1,0 +1,51 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<NexusMarketing.Models.tbl_category>
+@{
+    ViewBag.Title = "DisplayCategory";
+}
+
+<img src="~/Content/images/online-shopping.jpg" class="img" />
+<style>
+    .img {
+       
+        margin-right: 10000px;
+    }
+</style>
+
+<hr>
+<h3 style="text-align:center">NEW COLLECTION</h3>
+
+
+<div class="row" style="margin-bottom:40px">
+
+    <div class="row" style="margin:20px">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-lg-4" style="height:250px;margin-top:120px">
+                    <img src="@Url.Content(item.cat_image)" style="height:100px" width="100%" ; />
+                    <br />
+                    <br />
+                    <br />
+                    <a href="#" class="btn btn"> @Html.ActionLink(item.cat_name, "View_Adds", new { id = item.cat_id })</a>
+
+                </div>
+            }
+        }
+    </div>
+
+
+
+</div>
+
+<div class="container" style="margin-left:500px">
+    <div class="pagination" style="margin-top:280px">
+
+        Page@(Model.PageCount < Model.PageNumber?0:Model.PageNumber)
+        of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@*@model NexusMarketing.Models.tbl_product
+    @{
+        ViewBag.Title = "Add_Product";
+    }
+
+    <h2>Add_Product</h2>
+
+    @using (Html.BeginForm("Add_Product", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.DropDownListFor(x => x.cat_id_fk, ViewBag.cat_list as SelectList, "=== SELECT CATEGORY ===", new { @class = "form-control" })
+
+        @Html.TextBoxFor(x => x.pro_name, new { @class = "form-control", @placeholder = "Enter Product Name" })
+        @Html.TextBoxFor(x => x.pro_price, new { @class = "form-control", @placeholder = "Enter Price Name" })
+        @Html.TextBoxFor(x => x.pro_description, new { @class = "form-control", @placeholder = "Enter Description Name" })
+
+
+        <input type="file" name="file" id="file" class="btn btn-default" />
+
+
+        <input type="submit" value="Submit" name="Submit" class="btn btn-success" />
+    }*@
+
+@model NexusMarketing.Models.tbl_product
+
+@{
+    ViewBag.Title = "Add_Product";
+}
+
+<h2>Add_Product</h2>
+
+@using (Html.BeginForm("Add_Product", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.cat_id_fk, "Category:")
+        @Html.DropDownListFor(x => x.cat_id_fk, ViewBag.cat_list as SelectList, "=== SELECT CATEGORY ===", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.cat_id_fk)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.pro_name, "Product Name:")
+        @Html.TextBoxFor(x => x.pro_name, new { @class = "form-control", @placeholder = "Enter Product Name" })
+        @Html.ValidationMessageFor(x => x.pro_name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.pro_price, "Price:")
+        @Html.TextBoxFor(x => x.pro_price, new { @class = "form-control", @placeholder = "Enter Price" })
+        @Html.ValidationMessageFor(x => x.pro_price)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.pro_description, "Description:")
+        @Html.TextBoxFor(x => x.pro_description, new { @class = "form-control", @placeholder = "Enter Description" })
+        @Html.ValidationMessageFor(x => x.pro_description)
+    </div>
+
+    <div class="form-group">
+        <label for="file">Product Image:</label>
+        <input type="file" name="file" id="file" class="btn btn-default" />
+        @Html.ValidationMessageFor(x => x.pro_image)
+    </div>
+
+    <input type="submit" value="Submit" name="Submit" class="btn btn-success" />
+}

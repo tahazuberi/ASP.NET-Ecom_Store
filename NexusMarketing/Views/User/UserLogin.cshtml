@@ -1,0 +1,20 @@
+﻿@model NexusMarketing.Models.tbl_user
+@{
+    ViewBag.Title = "UserLogin";
+}
+
+<h2>UserLogin</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.TextBoxFor(x => x.u_name, new { @class = "form-control", @placeholder = "Enter Name" })
+    @Html.PasswordFor(x => x.u_password, new { @class = "form-control", @placeholder = "Enter Password" })
+
+    <input type="submit" value="Login" name="login" class="btn btn-success" />
+}
+<div class="form-group">
+    <h3>
+        @ViewBag.error
+    </h3>
+</div>
+

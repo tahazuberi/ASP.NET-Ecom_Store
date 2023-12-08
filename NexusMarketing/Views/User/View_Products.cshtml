@@ -1,0 +1,32 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<NexusMarketing.Models.tbl_product>
+@{
+    ViewBag.Title = "View_Products";
+}
+
+<h2>View_Products</h2>
+
+
+<div class="row" style="margin-bottom:40px">
+
+    <div class="row">
+        @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-lg-4" style="height:250px;margin-top:120px">
+                        <img src="@Url.Content(item.pro_image)" style="height:100px"; />
+                        <br />
+                        <br />
+                        <br />
+                        <a href="#" class="btn btn"> @Html.ActionLink(item.pro_name, "View_Adds", new { id = item.pro_id })</a>
+
+                    </div>
+                }
+            }
+    </div>
+
+
+
+</div>
+

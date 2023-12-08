@@ -1,0 +1,32 @@
+﻿@model IEnumerable<NexusMarketing.Models.tbl_category>
+@{
+    ViewBag.Title = "ViewCategory";
+}
+
+<h2>CATEGORIES</h2>
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>CATEGORY NAME</th>
+            <th>CATEGORY IMAGE</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.cat_name</td>
+                        <td><img src="@Url.Content(item.cat_image)" height="70px" width="70px" /></td>
+
+                        <td> <a class="btn btn-success" href="@Url.Action("EditCategory", new {id = item.cat_id})">EDIT</a></td>
+                        <td> <a class="btn btn-danger" href="@Url.Action("DeleteCategory", new {id = item.cat_id})">DELETE</a></td>
+                    </tr>
+                }
+            }
+    </tbody>
+</table>
+
+
